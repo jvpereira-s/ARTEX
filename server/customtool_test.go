@@ -84,9 +84,16 @@ func TestShellQuote(t *testing.T) {
 // stdin JSON and the mirrored env var, then print — verifying the whole script
 // param-passing path. Skips if no python3.
 func TestExecPython(t *testing.T) {
-	interp, err := exec.LookPath("python3")
-	if err != nil {
-		t.Skip("python3 unavailable")
+	var interp string
+	for _, name := range []string{"python3", "python"} {
+		candidate, err := exec.LookPath(name)
+		if err == nil && exec.Command(candidate, "--version").Run() == nil {
+			interp = candidate
+			break
+		}
+	}
+	if interp == "" {
+		t.Skip("Python unavailable")
 	}
 	code := `import json,sys,os
 a = json.load(sys.stdin)
