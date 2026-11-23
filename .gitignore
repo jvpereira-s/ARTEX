@@ -66,3 +66,18 @@ posture-runs/
 
 # benchmark runner output (one dir per run)
 benchmark-results/
+
+# --- sincronia-github (automático) ---
+node_modules/
+.next/
+.env.*
+!.env.example
+!.env.sample
+!.env.exemplo
+!.env.modelo
+*.pem
+*.key
+*.pfx
+*.p12
+desktop.ini
+npm-debug.log*
